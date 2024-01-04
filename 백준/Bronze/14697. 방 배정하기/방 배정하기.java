@@ -9,17 +9,20 @@ public class Main {
 		int C = Integer.parseInt(st.nextToken());
 		int N = Integer.parseInt(st.nextToken());
 
-		for(int i = 1; i<50; i++){
-			for(int j = 1; j<50; j++){
-				for(int k = 1; k<50; k++){
-					if(( i * A ) + ( j * B ) + ( k * C ) == N){
+		int AMax = (N / A) + 1;
+		int BMax = (N / B) + 1;
+		int CMax = (N / C) + 1;
+
+		for(int i = 0; i<AMax; i++){
+			for(int j = 0; j<BMax; j++){
+				for(int k = 0; k<CMax; k++){
+					if((A * i) + (B * j) + (C * k) == N){
 						System.out.println(1);
 						return;
 					}
 				}
 			}
 		}
-
 		System.out.println(0);
 	}
 }
