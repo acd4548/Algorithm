@@ -39,7 +39,7 @@ public class Main {
                         cntB--;
                         if(cntW >= W && cntB <= B){
                             max = Math.max(max, (cntW + cntB));
-                            }
+                        }
                         if(s >= e) {
                             e++;
                             break;
@@ -60,7 +60,9 @@ public class Main {
         }
         if(len == 1){
             if(cntB <= B && cntW >= W){
-                System.out.println(1);
+                System.out.println(cntB + cntW);
+            }else if(max == Integer.MIN_VALUE){
+                System.out.println(0);
             }
         }else if(max == Integer.MIN_VALUE){
             System.out.println(0);
