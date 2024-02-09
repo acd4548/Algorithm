@@ -4,60 +4,31 @@ import java.io.*;
 public class Main {
     public static void main(String [] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
         int N = Integer.parseInt(br.readLine());
-        StringTokenizer st = new StringTokenizer(br.readLine());
         int [] arr = new int [N];
-
+        StringTokenizer st = new StringTokenizer(br.readLine());
         for(int i = 0; i<N; i++){
             arr[i] = Integer.parseInt(st.nextToken());
         }
 
         int s = 0;
         int e = N-1;
-
-        int max = Integer.MIN_VALUE;
-
+        long ans = Long.MIN_VALUE;
         while(s < e){
-            int num = (e - s - 1) * Math.min(arr[s], arr[e]);
+            int state = (e - s - 1) * Math.min(arr[s], arr[e]);
 
-            if(num > max){
-                max = num;
+            if(state > ans){
+                ans = state;
             }
 
-            if(arr[s] > arr[e]){
-                int temp = e;
-                while(s < e){
-                    e--;
-                    if(arr[temp] < arr[e]){
-                        break;
-                    }
-                }
-            }else if(arr[s] < arr[e]){
-                int temp = s;
-                while(s < e){
-                    s++;
-                    if(arr[temp] < arr[s]){
-                        break;
-                    }
-                }
-            }else{
-                int temp1 = s;
-                int temp2 = e;
-                while(s < e){
-                    s++;
-                    e--;
-                    if(arr[temp1] < arr[s]){
-                        e = temp2;
-                        break;
-                    }else if(arr[temp2] < arr[e]){
-                        s = temp1;
-                        break;
-                    }
-                }
+            if(arr[s] <= arr[e]){
+                s++;
+            }else if(arr[e] < arr[s]){
+                e--;
             }
+
         }
-
-        System.out.println(max);
-
+        System.out.println(ans);
     }
 }
