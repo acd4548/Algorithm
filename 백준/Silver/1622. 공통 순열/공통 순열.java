@@ -3,13 +3,16 @@ import java.io.*;
 
 public class Main {
     public static void main (String [] args) throws IOException {
-        Scanner sc = new Scanner(System.in);
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
         int [] arr1 = new int [26];
         int [] arr2 = new int [26]; // 0이 a
-        while(sc.hasNextLine()){
-            String a = sc.nextLine();
-            String b = sc.nextLine();
+        while(true){
+            String a = br.readLine();
+            if(a == null){
+                break;
+            }
+            String b = br.readLine();
 
             for(int i = 0; i<a.length(); i++){
                 arr1[a.charAt(i) - 'a']++;
