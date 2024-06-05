@@ -11,13 +11,11 @@ public class Main {
         }
 
         long ans = 0;
+        long pow = 1;
         for(int i = 0; i<L; i++){
-            long num = arr[i] - 'a'+ 1;
-            for(int j = 0; j<i; j++){
-                num *= 31;
-            }
-            ans += num;
+            ans += (arr[i] - 'a' + 1) * pow;
+            pow = (pow * 31) % 1234567891;
         }
-        System.out.println(ans);
+        System.out.println(ans % 1234567891);
     }
 }
