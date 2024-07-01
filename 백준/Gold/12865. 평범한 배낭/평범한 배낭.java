@@ -18,19 +18,16 @@ public class Main {
 
         dp = new int [N+1][K+1];
 
-        System.out.print(dp(N, K));
-    }
-
-    static int dp(int i, int k){
-        if(i < 0) return 0;
-
-        if(dp[i][k] == 0){
-            if(arr[i][0] > k){
-                dp[i][k] = dp(i-1, k);
-            }else{
-                dp[i][k] = Math.max(dp(i-1, k), dp(i-1, k-arr[i][0]) + arr[i][1]);
+        for(int i = 1; i<N+1; i++){
+            for(int j = 1; j<K+1; j++){
+                if(arr[i][0] > j){
+                    dp[i][j] = dp[i-1][j];
+                }else{
+                    dp[i][j] = Math.max(dp[i-1][j], dp[i-1][j - arr[i][0]] + arr[i][1]);
+                }
             }
         }
-        return dp[i][k];
+
+        System.out.println(dp[N][K]);
     }
 }
