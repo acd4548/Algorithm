@@ -1,40 +1,45 @@
 import java.util.*;
 import java.io.*;
 
-public class Main {
-    static int [] ans = new int [1000001];
-    static boolean checkNum [] = new boolean[10];
-    public static void main (String [] args) throws IOException{
-        BufferedReader br = new BufferedReader (new InputStreamReader(System.in));
+public class Main{
+    static int [] ans = new int [1000010];
+    static int [] visited_arr = new int [10];
+    public static void main(String [] args) throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int cnt = 1;
         int num = 1;
-        while(true){
-            //num 이 겹치는 수가 없는애라면
-            //cnt를 1 더해주고 num도 1더해준다.
-            if(check(num)) {
-                ans[cnt++] = num;
+
+        while(cnt <= 1000000){
+            if(check(num)){
+                ans[cnt] = num;
+                cnt++;
             }
-            if(cnt == 1000001) break;
+
             num++;
         }
 
+        StringBuilder sb = new StringBuilder();
         while(true){
-            int N = Integer.parseInt(br.readLine());
-            if(N == 0) return;
-            System.out.println(ans[N]);
+            int temp = Integer.parseInt(br.readLine());
+            if(temp == 0){
+                break;
+            }
+            sb.append(ans[temp]).append("\n");
         }
+        System.out.println(sb);
     }
-    // 겹치는 애가 있는지 없는지 확인하는 매서드
-    public static boolean check(int n){
-        Arrays.fill(checkNum, false);
-        while(true){
-            int num = n % 10;
-            if(checkNum[num]) {
+
+
+    private static boolean check(int num){
+        Arrays.fill(visited_arr, 0);
+
+        while(num > 0){
+            visited_arr[num % 10]++;
+            if(visited_arr[num % 10] >= 2){
                 return false;
             }
-            checkNum[num] = true;
-            n /= 10;
-            if(n == 0) break;
+
+            num /= 10;
         }
         return true;
     }
