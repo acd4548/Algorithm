@@ -10,48 +10,34 @@ public class Main{
         int k = Integer.parseInt(st.nextToken());
         int c = Integer.parseInt(st.nextToken());
         int [] sushiArr = new int [N];
+        int [] cntArr = new int [d + 1];
         for(int i = 0; i<N; i++){
             sushiArr[i] = Integer.parseInt(br.readLine());
         }
 
-        HashMap<Integer, Integer> m = new HashMap<>();
+        int max = 0;
+        int cnt = 1;
+        cntArr[c]++;
         for(int i = 0; i<k; i++){
-            if(m.containsKey(sushiArr[i])){
-                m.put(sushiArr[i], m.get(sushiArr[i]) + 1);
-            }else{
-                m.put(sushiArr[i], 1);
+            if(cntArr[sushiArr[i]]++ == 0){
+                cnt++;
             }
         }
 
-        int front = 0;
-        int end = k;
-        int max = m.size();
-        if(!m.containsKey(c)){
-            max++;
-        }
-
+        int removeIdx = 0;
+        int addIdx = k;
         for(int i = 0; i<N; i++){
-            if(m.get(sushiArr[front]) == 1){
-                m.remove(sushiArr[front]);
-            }else{
-                m.put(sushiArr[front], m.get(sushiArr[front]) - 1);
+            if(--cntArr[sushiArr[removeIdx]] == 0){
+                cnt--;
             }
 
-            if(m.containsKey(sushiArr[end])){
-                m.put(sushiArr[end], m.get(sushiArr[end]) + 1);
-            }else{
-                m.put(sushiArr[end], 1);
+            if(cntArr[sushiArr[addIdx]]++ == 0){
+                cnt++;
             }
 
-            int t = m.size();
-            if(!m.containsKey(c)){
-                t++;
-            }
-
-            max = Math.max(max, t);
-
-            front = (front + 1) % N;
-            end = (end + 1) % N;
+            max = Math.max(max, cnt);
+            removeIdx = (removeIdx + 1) % N;
+            addIdx = (addIdx + 1) % N;
         }
 
         System.out.println(max);
